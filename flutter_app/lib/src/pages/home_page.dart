@@ -32,6 +32,7 @@ class HomePage extends StatelessWidget {
           print('Hola Mundo');
         },
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
