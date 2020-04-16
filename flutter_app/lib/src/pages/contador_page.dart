@@ -1,10 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
-  final TextStyle styleText = new TextStyle(fontSize: 25);
-  final conteo = 10;
-
+class ContadorPage extends StatefulWidget {
   @override
+  createState() => _ContadorPageState();
+}
+
+class _ContadorPageState extends State<ContadorPage> {
+  final TextStyle _styleText = new TextStyle(fontSize: 25);
+  int _conteo = 0;
+
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
@@ -18,11 +23,11 @@ class HomePage extends StatelessWidget {
           children: <Widget>[
             Text(
               'Hola Mundo',
-              style: styleText,
+              style: _styleText,
             ),
             Text(
-              '$conteo',
-              style: styleText,
+              '$_conteo',
+              style: _styleText,
             ),
           ],
         ),
@@ -30,8 +35,9 @@ class HomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          print('Hola Mundo');
-//          conteo = conteo + 1;
+          setState(() {
+            _conteo++;
+          });
         },
       ),
     );
