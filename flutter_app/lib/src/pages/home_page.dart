@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
+  final TextStyle styleText = new TextStyle(fontSize: 25);
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -11,7 +12,19 @@ class HomePage extends StatelessWidget {
         centerTitle: true,
       ),
       body: Center(
-        child: Text('Hola Mundo'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Hola Mundo',
+              style: styleText,
+            ),
+            Text(
+              'Hola Mundo',
+              style: styleText,
+            ),
+          ],
+        ),
       ),
     );
   }
