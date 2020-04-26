@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.filter_center_focus),
-        onPressed: _scanQR,
+        onPressed: () => _scanQR(context),
         backgroundColor: Theme.of(context).primaryColor,
       ),
     );
@@ -43,36 +43,29 @@ class _HomePageState extends State<HomePage> {
 
   ScanResult scanResult;
 
-  Future _scanQR() async {
-    String futureString = 'https://www.doapps.me/';
+  Future _scanQR(BuildContext context) async {
+    String futureString = '';
+
+    try {
+      var result = await BarcodeScanner.scan();
+      setState(() => scanResult = result);
+      futureString = result.rawContent.toString();
+    } catch (e) {
+      print(e.toString());
+    }
 
     if (futureString != null) {
       final scan = ScanModel(valor: futureString);
       scansBloc.agregarScan(scan);
 
-      final scan2 = ScanModel(valor: 'geo:-12.035460553727663,-77.10408583125003');
-      scansBloc.agregarScan(scan2);
-      
-      if(Platform.isIOS) {
+      if (Platform.isIOS) {
         Future.delayed(Duration(milliseconds: 750), () {
-          utils.abrirScan(scan);
+          utils.abrirScan(context, scan);
         });
       } else {
-        utils.abrirScan(scan);
+        utils.abrirScan(context, scan);
       }
     }
-
-    // geo:-12.035460553727663,-77.10408583125003
-
-//    try {
-//      var result = await BarcodeScanner.scan();
-//      setState(() => scanResult = result );
-//      futureString = result.rawContent.toString();
-//
-//    } catch (e) {
-//      print(e.toString());
-//    }
-//    print(futureString);
   }
 
   Widget _callPage(int paginaActual) {
